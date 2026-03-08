@@ -76,7 +76,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--text-gold);
+    background-color: #4a3f28;
     color: black;
 }
 
