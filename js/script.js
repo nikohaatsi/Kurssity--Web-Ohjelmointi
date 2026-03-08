@@ -14,14 +14,14 @@ reset.addEventListener('click',resetcalc)
 let cleanItems = {};
 
 
-///haetaan data avoimesta apista https://deadlock-api.com/
+///haetaan data avoimesta apista https://deadlock-api.com/  , https://assets.deadlock-api.com/scalar#tag/items/GET/v2/items,  https://assets.deadlock-api.com/scalar#tag/items/GET/v2/items/by-slot-type/{slot_type}
 
 
 AllItems().then(items => {
     cleanItems = items;
 });
 
-///haetaan data avoimesta apista kategorioittain
+///haetaan raaka data avoimesta apista kategorioittain
 async function gunDatafetch(){ 
     const response = await fetch('https://assets.deadlock-api.com/v2/items/by-slot-type/weapon')
     const weapondata= await response.json()
@@ -39,7 +39,7 @@ async function vitalityDatafetch(){
     return vitalitydata
 }
 
-//kasataan kaikki yhteen olioon, hain oikeat statsiparametrit(item.properties.jne linjat) jsonista tekoälyä käyttämällä
+//kasataan kaikki relevantti tieto yhteen olioon, hain oikeat statsiparametrit(item.properties.jne linjat) jsonista tekoälyä käyttämällä
 async function AllItems() {
     const weaponData = await gunDatafetch();
     const spiritData = await spiritDatafetch();
@@ -101,8 +101,8 @@ function selectitem(){
 }
 
 
-/// tekoälyllä luotu olio investointi breakpointeista, varmaan olisi ollut viisaampi tehdä api kutsulla mutta muuttuvat sen verran harvoin että ei ole suuri ongelma.
-//huvittavaa tässä oli se että tekoäly (google gemini) yritti antaa minulle selkeästi väärän taulun toistuvasti, joten epäironisesti olisi ollut nopeampi kirjata tämä suoraan käsin.
+/// tekoälyllä luotu olio investointi breakpointeista, varmaan olisi ollut viisaampi tehdä api kutsulla mutta nämä muuttuvat sen verran harvoin että ei ole suuri ongelma.
+//huvittavaa tässä oli se että tekoäly (google gemini) yritti antaa minulle selkeästi väärän taulun toistuvasti, joten ironisesti olisi ollut nopeampi kirjata tämä suoraan käsin.
 
 const breakpoints = {
     souls: [800, 1600, 2400, 3200, 4800, 7200, 9600, 16000, 22400, 28800],
@@ -124,7 +124,7 @@ function investmentcalc(categoryinvest,categorytype){
 }
 
 
-//laskurit, viisaampi kaveri kuin minä olisi tehnyt yhden uudelleenkutsuttavan funktion eikä neljää copypastea eri muuttujilla.
+//laskurit, viisaampi kaveri kuin minä olisi tehnyt yhden uudelleenkutsuttavan funktion eikä kolmea copypastea eri muuttujilla.
 
 function totalcost (build, cleanItems){
     let totalprice= 0
@@ -215,7 +215,7 @@ function calculate (){
     vitalityinvest(build,cleanItems)
 }
 
-///nollausfunktio, toimii "hiukan" tyhmästi.
+///nollausfunktio, toimii "hiukan" tyhmästi. korjataan soon_tm
 
 function resetcalc(){
     let selling = document.querySelectorAll('#build li')
